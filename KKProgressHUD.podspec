@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "KKProgressHUD"
-  s.version      = "0.0.7"
+  s.version      = "0.0.1"
   s.summary      = "Loading"
 
   s.description  = <<-DESC
