@@ -1,0 +1,19 @@
+PODS:
+  - KKProgressHUD (0.0.4):
+    - MBProgressHUD
+  - MBProgressHUD (1.0.0)
+
+DEPENDENCIES:
+  - KKProgressHUD (from `../`)
+
+EXTERNAL SOURCES:
+  KKProgressHUD:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  KKProgressHUD: 9cff91d464f7ef0aafcc0efa92fd65164c816d0f
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+
+PODFILE CHECKSUM: 8a1c1b7f7fc3c67e5a98a5bd90dd8150cb0982df
+
+COCOAPODS: 1.2.1
