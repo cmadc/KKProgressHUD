@@ -15,12 +15,12 @@ Pod::Spec.new do |s|
   s.description  = <<-DESC
                   Loader and toast
                    DESC
-  s.homepage     = "https://kakatrip.cn/"
+  s.homepage     = "https://github.com/cmadc/KKProgressHUD"
   s.license      = "MIT (example)"
   s.license      = { :type => "MIT", :file => "LICENSE" }
-  s.author       = { "CaiMing" => "ming.cai@kakatrip.cn" }
+  s.author       = { "CaiMing" => "davis_cai@163.com" }
   s.platform     = :ios, "5.0"
-  s.source       = { :git => "https://git.oschina.net/kakaBTravel/KKProgressHUD.git", :tag => "#{s.version}" }
+  s.source       = { :git => "https://github.com/cmadc/KKProgressHUD.git", :tag => "#{s.version}" }
   s.source_files = "Pod/Classes/**/*"
   s.requires_arc = true
   s.dependency "MBProgressHUD"
