@@ -11,6 +11,7 @@
 
 @interface KKProgressHUD ()
 
+
 @end
 
 @implementation KKProgressHUD
@@ -27,7 +28,6 @@
     [self showMBProgressAddTo:aView message:nil];
 }
 
-
 + (void)hideMBProgressForView:(UIView*)aView
 {
     [KKProgressHUD hideHUDForView:aView animated:YES];
@@ -36,35 +36,19 @@
 + (void)showErrorAddTo:(UIView *)aView message:(NSString *)message;
 {
     [KKProgressHUD hideHUDForView:aView animated:NO];
-    [[KKToast makeToast:message]show];
+    [[KKToast makeErrorToast:message]show];
 }
 
 + (void)showSuccessAdd:(UIView *)aView message:(NSString *)message
 {
     [KKProgressHUD hideHUDForView:aView animated:NO];
-    MBProgressHUD *hud = [KKProgressHUD showHUDAddedTo:aView animated:NO];
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
-    view.backgroundColor = [UIColor greenColor];
-    hud.customView = view;
-    hud.mode = MBProgressHUDModeCustomView;
-
-//    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    hud.bezelView.backgroundColor = [UIColor clearColor];
-//    hud.contentColor = [UIColor whiteColor];
-//    hud.label.font = [UIFont systemFontOfSize:14];
-//    hud.minSize = CGSizeMake(100, 46);
-//    hud.margin = 10;
-//    hud.bezelView.layer.cornerRadius = 10.0f;
-//    hud.label.textColor = [UIColor whiteColor];
-//    hud.label.text = message;
-    [hud showAnimated:YES];
-    [hud hideAnimated:YES afterDelay:12.0];
+    [[KKToast makeSucessToast:message]show];
 }
 
 +(void)showReminder:(UIView *)aView message:(NSString *)message{
     
     [KKProgressHUD hideHUDForView:aView animated:NO];
-    [[KKToast makeToast:message]show];
+//    [[KKToast makeToast:message]show];
 }
 
 

@@ -1,5 +1,5 @@
 PODS:
-  - KKProgressHUD (0.0.5):
+  - KKProgressHUD (0.0.3):
     - MBProgressHUD
   - MBProgressHUD (1.0.0)
 
@@ -15,7 +15,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  KKProgressHUD: 03d07342ab121ef4c1735802a6129339ddcb44a1
+  KKProgressHUD: b850bcb0083ae6858f0a86d28915834694b8891c
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
 
 PODFILE CHECKSUM: 8a1c1b7f7fc3c67e5a98a5bd90dd8150cb0982df
