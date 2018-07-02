@@ -114,7 +114,6 @@
 				3FB7AE9A1EF7769B0027CB1D /* Sources */,
 				3FB7AE9B1EF7769B0027CB1D /* Frameworks */,
 				3FB7AE9C1EF7769B0027CB1D /* Resources */,
-				74E752880CD6E6F53B5DF10D /* [CP] Embed Pods Frameworks */,
 				9745F77B94A26C510CB600E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -173,34 +172,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		74E752880CD6E6F53B5DF10D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KKProgressHUD/Pods-KKProgressHUD-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8F83FD248DCB1F3DEF4AAAF3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-KKProgressHUD-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		9745F77B94A26C510CB600E9 /* [CP] Copy Pods Resources */ = {
@@ -209,9 +196,22 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-KKProgressHUD/Pods-KKProgressHUD-resources.sh",
+				"${PODS_ROOT}/../../Pod/Resource/Rectangle@2x.png",
+				"${PODS_ROOT}/../../Pod/Resource/Rectangle@3x.png",
+				"${PODS_ROOT}/../../Pod/Resource/toastErrorTips@2x.png",
+				"${PODS_ROOT}/../../Pod/Resource/toastErrorTips@3x.png",
+				"${PODS_ROOT}/../../Pod/Resource/toastSuccessTips@2x.png",
+				"${PODS_ROOT}/../../Pod/Resource/toastSuccessTips@3x.png",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Rectangle@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Rectangle@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/toastErrorTips@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/toastErrorTips@3x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/toastSuccessTips@2x.png",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/toastSuccessTips@3x.png",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

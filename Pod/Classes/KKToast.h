@@ -15,6 +15,25 @@
 - (void)show;
 
 /**
+ *    @brief    构造一个MJToast对象
+ *
+ *    @param     text     需要显示的字符串
+ *
+ *    @return    返回的MJToast对象
+ */
++ (KKToast *)makeErrorToast:(NSString *)text;
+
+/**
+ *    @brief    构造一个MJToast对象
+ *
+ *    @param     text     需要显示的字符串
+ *
+ *    @return    返回的MJToast对象
+ */
++ (KKToast *)makeSucessToast:(NSString *)text;
+
+
+/**
  *	@brief	构造一个MJToast对象
  *
  *	@param 	text 	需要显示的字符串

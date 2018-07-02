@@ -19,20 +19,12 @@
 {
     [self hideMBProgressForView:aView];
     KKProgressHUD *hud =  [KKProgressHUD showHUDAddedTo:aView animated:NO];
-    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    hud.bezelView.backgroundColor = [UIColor colorWithRed:31.0/255.0 green:41.0/255.0 blue:62.0/255.0 alpha:0.8];
-    hud.contentColor = [UIColor whiteColor];
-    hud.label.textColor = [UIColor whiteColor];
-    hud.label.text = message;
-    hud.label.font = [UIFont systemFontOfSize:14];
-    hud.minSize = CGSizeMake(100, 46);
-    hud.margin = 5;
-    hud.bezelView.layer.cornerRadius = 10.0f;
+    hud.bezelView.backgroundColor = [UIColor clearColor];
 }
 
 + (void)showMBProgressAddTo:(UIView*)aView
 {
-    [self showMBProgressAddTo:aView message:@"请稍等..."];
+    [self showMBProgressAddTo:aView message:nil];
 }
 
 
@@ -51,19 +43,22 @@
 {
     [KKProgressHUD hideHUDForView:aView animated:NO];
     MBProgressHUD *hud = [KKProgressHUD showHUDAddedTo:aView animated:NO];
+    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    view.backgroundColor = [UIColor greenColor];
+    hud.customView = view;
     hud.mode = MBProgressHUDModeCustomView;
-    hud.customView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"success"]];
-    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
-    hud.bezelView.backgroundColor = [UIColor colorWithRed:31.0/255.0 green:41.0/255.0 blue:62.0/255.0 alpha:0.8];
-    hud.contentColor = [UIColor whiteColor];
-    hud.label.font = [UIFont systemFontOfSize:14];
-    hud.minSize = CGSizeMake(100, 46);
-    hud.margin = 10;
-    hud.bezelView.layer.cornerRadius = 10.0f;
-    hud.label.textColor = [UIColor whiteColor];
-    hud.label.text = message;
+
+//    hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
+    hud.bezelView.backgroundColor = [UIColor clearColor];
+//    hud.contentColor = [UIColor whiteColor];
+//    hud.label.font = [UIFont systemFontOfSize:14];
+//    hud.minSize = CGSizeMake(100, 46);
+//    hud.margin = 10;
+//    hud.bezelView.layer.cornerRadius = 10.0f;
+//    hud.label.textColor = [UIColor whiteColor];
+//    hud.label.text = message;
     [hud showAnimated:YES];
-    [hud hideAnimated:YES afterDelay:2.0];
+    [hud hideAnimated:YES afterDelay:12.0];
 }
 
 +(void)showReminder:(UIView *)aView message:(NSString *)message{

@@ -40,11 +40,14 @@ static float totalTimeCount = 10 * DISAPPEAR_DURATION;
 
 @property (nonatomic, copy) NSString *strToast;
 @property (nonatomic, strong) UILabel *lblToast;
-
+@property (nonatomic, strong) UIImageView *lblToastBG;
+@property (nonatomic, strong) UIImageView *lblToastTips;
 @property (nonatomic, assign) NSTimer *disappearTimer;
 @property (nonatomic, assign) NSTimer *disappearingTimer;
 @property (nonatomic, assign) int curToastState;        // 0:不显示;1:显示;2:正在消失
 @property (nonatomic, assign) float curTimeCount;         // 当前倒计时
+@property (nonatomic, strong) UIFont *textFont;
+
 
 + (KKToast *)sharedInstance;
 
@@ -74,29 +77,7 @@ static float totalTimeCount = 10 * DISAPPEAR_DURATION;
 {
     if (s_KKToast == nil) {
         s_KKToast = [[KKToast alloc] init];
-        UILabel *lblPg = [[UILabel alloc]initWithFrame:CGRectZero];
-        UIFont *font = [UIFont systemFontOfSize:14];
-        lblPg.backgroundColor = [UIColor colorWithRed:31.0/255.0 green:41.0/255.0 blue:62.0/255.0 alpha:0.80];
-        //lblToast.backgroundColor = [UIColor lightGrayColor];
-        lblPg.textColor = [UIColor whiteColor];
-        //lblToast.textColor = [UIColor blackColor];
-        lblPg.layer.cornerRadius = 5;
-        lblPg.layer.borderWidth = 0;
-        lblPg.layer.masksToBounds = YES;
-        lblPg.numberOfLines = 0;
-        lblPg.font = font;
-        lblPg.textAlignment = NSTextAlignmentCenter;
-        s_KKToast.lblToast = lblPg;
-
-        // 添加边框
-//        CALayer *layer = [s_KKToast.lblToast layer];
-//        layer.borderColor = [[UIColor lightGrayColor] CGColor];
-//        layer.borderWidth = 1.0f;
-        // 添加四个边阴影...(不适用于圆角view)
-        //    lblToast.layer.shadowColor = [UIColor whiteColor].CGColor;
-        //    lblToast.layer.shadowOffset = CGSizeMake(2, 2);
-        //    lblToast.layer.shadowOpacity = 0.5;
-        //    lblToast.layer.shadowRadius = 2.0;
+        
     }
     return s_KKToast;
 }
@@ -108,11 +89,57 @@ static float totalTimeCount = 10 * DISAPPEAR_DURATION;
     if (self = [super init])
     {
         self.strToast = text;
-         
-    }    
+    }
     return self;
 }
 
+- (UILabel *)lblToast
+{
+    if (!_lblToast) {
+        
+        UILabel *lblPg = [[UILabel alloc]initWithFrame:CGRectZero];
+        lblPg.textColor = [UIColor colorWithRed:72/255.0 green:72/255.0 blue:72/255.0 alpha:1];
+        lblPg.numberOfLines = 0;
+        lblPg.font = self.textFont;
+        lblPg.textAlignment = NSTextAlignmentCenter;
+        _lblToast = lblPg;
+        
+    }
+    return _lblToast;
+}
+
+- (UIFont *)textFont
+{
+    if (!_textFont) {
+        _textFont  = [UIFont fontWithName:@"PingFangSC-Medium" size:14];
+    }
+    return _textFont;
+}
+
+- (UIImageView *)lblToastBG
+{
+    if (!_lblToastBG) {
+        
+        _lblToastBG = [[UIImageView alloc]init];
+        UIImage *image = [UIImage imageNamed:@"Rectangle"];
+        _lblToastBG.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(20, 20, 20, 20) resizingMode:UIImageResizingModeTile];
+
+        [_lblToastBG addSubview:self.lblToast];
+        [_lblToastBG addSubview:self.lblToastTips];
+    }
+    return _lblToastBG;
+}
+
+- (UIImageView *)lblToastTips
+{
+    if (!_lblToastTips) {
+        
+        _lblToastTips = [[UIImageView alloc]initWithFrame:CGRectMake(21, 24, 15, 15)];
+        _lblToastTips.image = [UIImage imageNamed:@"toastErrorTips"];
+    }
+    
+    return _lblToastTips;
+}
 
 + (KKToast *)makeToast:(NSString *)text
 {
@@ -121,41 +148,62 @@ static float totalTimeCount = 10 * DISAPPEAR_DURATION;
     return aToast;
 }
 
+
++ (KKToast *)makeErrorToast:(NSString *)text
+{
+    KKToast *aToast = [self makeToast:text];
+    aToast.lblToastTips.image = [UIImage imageNamed:@"toastErrorTips"];
+    return aToast;
+}
+
+
++ (KKToast *)makeSucessToast:(NSString *)text
+{
+    KKToast *aToast = [self makeToast:text];
+    aToast.lblToastTips.image = [UIImage imageNamed:@"toastSuccessTips"];
+    return aToast;
+}
+
+
+
+
 - (void)show
 {
     if([self.strToast isEqualToString:@""]) {
+        
         return;
     }
     
-    UIFont *font = [UIFont systemFontOfSize:14];
-    CGSize textSize = [_strToast boundingRectWithSize:CGSizeMake(KKToastLabelWidth, KKToastLabelHeight)
+    CGFloat KKLabelWidth  = [UIScreen mainScreen].bounds.size.width-106;
+    CGSize textSize = [_strToast boundingRectWithSize:CGSizeMake(KKLabelWidth, KKToastLabelHeight)
                                               options:(NSStringDrawingUsesFontLeading | NSStringDrawingUsesLineFragmentOrigin)
-                                           attributes:@{NSFontAttributeName:font}
+                                           attributes:@{NSFontAttributeName:self.textFont}
                                               context:nil].size;
-    [_lblToast setFrame:CGRectMake(0, 0, textSize.width + 2 * KKToastTextPadding, textSize.height + 2 * KKToastTextPadding)];
-
-    _lblToast.text = self.strToast;
+    
+    self.lblToast.frame = CGRectMake(46, 23, textSize.width, textSize.height);
+    self.lblToast.text = self.strToast;
     
     UIWindow *window = [KKToast tostWindow];
 
-    if(self.lblToast.superview) {
-        if (self.lblToast.superview != window) {
-            [self.lblToast removeFromSuperview];
-            [window addSubview:self.lblToast];
+    if(self.lblToastBG.superview) {
+        if (self.lblToastBG.superview != window) {
+            [self.lblToastBG removeFromSuperview];
+            [window addSubview:self.lblToastBG];
         }
     } else {
-        [window addSubview:self.lblToast];
+        [window addSubview:self.lblToastBG];
     }
+    self.lblToastBG.frame = CGRectMake(0, 0, textSize.width+66, textSize.height+46);//136,78
     CGFloat windowCenterX = window.center.x;
-//    CGFloat windowHeight = window.frame.size.height;
     CGFloat centerX = windowCenterX;
     CGFloat centerY = window.center.y;
     
-    self.lblToast.center = CGPointMake(centerX, centerY);
-    self.lblToast.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin|
+    self.lblToastBG.center = CGPointMake(centerX, centerY);
+    self.lblToastBG.autoresizingMask = (UIViewAutoresizingFlexibleLeftMargin|
                                       UIViewAutoresizingFlexibleRightMargin|
                                       UIViewAutoresizingFlexibleTopMargin);
     
+    self.lblToastTips.center =  CGPointMake(self.lblToastTips.center.x, textSize.height/2+23);
     if (_curToastState == 2) {
         [_disappearingTimer invalidate];
         self.disappearingTimer = nil;
@@ -164,7 +212,7 @@ static float totalTimeCount = 10 * DISAPPEAR_DURATION;
         self.disappearTimer = nil;
     }
     _curToastState = 0;
-    [self.lblToast setAlpha:1];
+    [self.lblToastBG setAlpha:1];
     self.disappearTimer = [NSTimer scheduledTimerWithTimeInterval:START_DISAPPEAR_SECOND target:self selector:@selector(toastDisappear:) userInfo:nil repeats:NO];
     _curToastState = 1;
 }
@@ -186,10 +234,10 @@ static float totalTimeCount = 10 * DISAPPEAR_DURATION;
         return;
     }
     if (_curTimeCount >= 0) {
-        [self.lblToast setAlpha:_curTimeCount/totalTimeCount];
+        [self.lblToastBG setAlpha:_curTimeCount/totalTimeCount];
         _curTimeCount--;
     } else {
-        [self.lblToast removeFromSuperview];
+        [self.lblToastBG removeFromSuperview];
         [self.disappearingTimer invalidate];
         self.disappearingTimer = nil;
         _curToastState = 0;

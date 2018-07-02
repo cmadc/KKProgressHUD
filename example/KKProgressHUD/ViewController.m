@@ -18,8 +18,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-//    [KKProgressHUD showMBProgressAddTo:self.view];
-    [KKProgressHUD showReminder:self.view message:@"12333333"];
+    [KKProgressHUD showMBProgressAddTo:self.view];
+    
+
+//    [KKProgressHUD showReminder:self.view message:@"12333333"];
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 
