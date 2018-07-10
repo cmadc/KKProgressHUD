@@ -35,12 +35,20 @@
 
 + (void)showErrorAddTo:(UIView *)aView message:(NSString *)message;
 {
+    if (![message isKindOfClass:[NSString class]]) {
+        
+        return;
+    }
     [KKProgressHUD hideHUDForView:aView animated:NO];
     [[KKToast makeErrorToast:message]show];
 }
 
 + (void)showSuccessAdd:(UIView *)aView message:(NSString *)message
 {
+    if (![message isKindOfClass:[NSString class]]) {
+        
+        return;
+    }
     [KKProgressHUD hideHUDForView:aView animated:NO];
     [[KKToast makeSucessToast:message]show];
 }

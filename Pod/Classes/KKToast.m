@@ -169,6 +169,12 @@ static float totalTimeCount = 10 * DISAPPEAR_DURATION;
 
 - (void)show
 {
+    
+    if (![self.strToast isKindOfClass:[NSString class]]) {
+        
+        return;
+    }
+    
     if([self.strToast isEqualToString:@""]) {
         
         return;
